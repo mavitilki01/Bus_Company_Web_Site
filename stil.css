@@ -1,10 +1,14 @@
     /* Genel Ayarlar */
     body {
         font-family: 'Segoe UI', sans-serif;
-        background-color: #f7f9fc;
+        background: linear-gradient(#a7c2ec,#007bff );
         margin: 0;
         padding: 0;
         color: #333;
+    }
+
+    html {
+        scroll-behavior: smooth;
     }
 
     /* Logo ve Üst Alan */
@@ -117,6 +121,50 @@
     .duyurular a:hover {
         text-decoration: underline;
     }
+
+    /*bilgi kutuları*/
+    .otobus-kutu {
+    margin-bottom: 30px;
+    }
+
+    .kutu-icerik {
+    background-color: #c5dbe0;
+    border: 1px solid #120404;
+    padding: 20px;
+    height: 250px; /* tüm kutular eşit yüksek */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    }
+
+    .kutu-icerik:hover {
+    
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+    transform: translateY(-10px);
+    transition: box-shadow 0.3s ease, transform 0.7s ease;
+    }
+
+    .kutu-icerik h4 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #007bff;
+    }
+
+    .kutu-icerik p {
+    font-size: 15px;
+    color: #555;
+    }
+
+    .bosluk {
+        background: -webkit-linear-gradient(90deg,#debe74,#ec8e47);
+        height: 550px;
+        opacity: 0.85;
+    }
+       
 
     /* Şerit İkonlar */
     .serit {
