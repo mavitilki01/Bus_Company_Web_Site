@@ -68,8 +68,10 @@
     /* Slideshow */
     #slideshow img {
         width: 100%;
-        height: auto;
+        height: 600px;
+        width: 900px;
         display: none;
+        object-fit: cover;
     }
 
     #slideshow img:first-child {
