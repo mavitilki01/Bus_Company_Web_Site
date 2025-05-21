@@ -1,14 +1,58 @@
-<!-- header.php -->
-<header style="background:#004080; padding:10px; color:white;">
-  <div class="logo" style="display:inline-block;">
-    <img src="Resimler/kartur_logo.png" alt="KARTUR Logo" style="height:40px;">
-  </div>
-  <nav style="display:inline-block; margin-left:20px;">
-    <ul style="list-style:none; margin:0; padding:0; display:flex; gap:15px;">
-      <li><a href="index.php" style="color:white; text-decoration:none;">Anasayfa</a></li>
-      <li><a href="portfolyo.php" style="color:white; text-decoration:none;">Portfolyo</a></li>
-      <li><a href="iletisim.php" style="color:white; text-decoration:none;">İletişim</a></li>
-    </ul>
-  </nav>
-</header>
-<!--xampp çalışmadığı için kontrol edemedim çalışıp çalışmadığını -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="stil.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid Banner">
+    <div class="container"> <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-7 logo">
+                <a href="?syf=main"><img src="Resimler/kartur_logo.png" class="img-responsive" alt="KARTUR Logo"></a>    
+            </div>
+            <div>
+                <i><h3><i>"KarTur’la Her Yol, Evine Giden Yol." </i></h3> </i>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default logo-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Navigasyonu aç/kapa</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="?syf=main">ANA SAYFA</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">KURUMSAL <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?syf=Hakkimizda">Hakkımızda</a></li>
+                            <li><a href="?syf=Belgelerimiz">Belgelerimiz</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HİZMETLERİMİZ <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?syf=Hizmet1">Hizmet 1</a></li>
+                            <li><a href="?syf=Hizmet2">Hizmet 2</a></li>
+                            <li><a href="?syf=Portfolyo">Portfolyo</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#iletisim">İLETİŞİM</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>

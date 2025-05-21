@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="stil.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
     <style>
         body {
             padding: 40px;
             font-family: Arial, sans-serif;
             background-color: #f8f8f8;
-            color: white;
         }
 
 
@@ -51,63 +52,12 @@
     </style>
 </head>
 
-<body>
+<body style="color:rgb(255, 255, 255)">
 
-    <?php include('header.php'); ?> <!--şimdilik çalışmıyor (xampp yok)-->
-
-    <!--php çalışmadığı için şimdilik bunu el ile ekledim
-    <div class="container-fluid Banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-7 logo">
-                    <a href="?syf=main"><img src="Resimler/kartur_logo.png" class="img-responsive"
-                            alt="KARTUR Logo"></a>
-                </div>
-                <div>
-                    <i>
-                        <h3><i>"KarTur’la Her Yol, Evine Giden Yol." </i></h3>
-                    </i>
-                </div>
-            </div>
-        </div>
-
-        <nav class="navbar navbar-default logo-nav">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="sr-only">Navigasyonu aç/kapa</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="?syf=main">ANA SAYFA</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">KURUMSAL <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?syf=Hakkimizda">Hakkımızda</a></li>
-                                <li><a href="?syf=Belgelerimiz">Belgelerimiz</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">HİZMETLERİMİZ <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?syf=Hizmet1">Hizmet 1</a></li>
-                                <li><a href="?syf=Hizmet2">Hizmet 2</a></li>
-                                <li><a href="?syf=Portfolyo">Portfolyo</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#iletisim">İLETİŞİM</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <div style="color:rgb(0,0,0);">
+        <?php include('header.php'); ?> 
     </div>
-    <!----------------------------------------------------------------------------------------->
+   
 
     <div class="container content-section" style="margin-top: 50px;">
         <h2 class="text-center" style="margin-bottom: 40px;">Portfolyo</h2>
@@ -120,7 +70,7 @@
                 <div class="caption">
                     <div class="container">
                         <div class="section text-center">
-                            <h1>KARTUR — Her Yol Evine Giden Yol</h1>
+                            <h1 >KARTUR — Her Yol Evine Giden Yol</h1>
                             <p>
                                 Türkiye'nin her şehrine kaliteli, hızlı ve konforlu ulaşım hizmeti sunan
                                 <strong>KARTUR</strong>, müşteri memnuniyetini ve güvenli yolculuğu her zaman ön planda
@@ -150,7 +100,7 @@
 
                         <div class="section">
                             <img class="col-xs-12 col-sm-6 col-md-4" src="https://images.unsplash.com/photo-1735825764478-674bb8df9d4a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                style="width: 250px; border-radius: 20%;" alt="" class="img-responsive">
+                                 style=" width: 240px; border-radius: 20%; align-items:center;" alt="" class="img-responsive">
                             <h4>Teknolojik Altyapı</h4>
                             <p>
                                 KARTUR olarak dijitalleşmeye verdiğimiz önemle, yolcularımızın seyahatlerini kolayca
@@ -186,8 +136,7 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
