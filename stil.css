@@ -1,7 +1,7 @@
     /* Genel Ayarlar */
     body {
         font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(#a7c2ec,#007bff );
+        background: linear-gradient(#FFF5EC, #E6EFF9);
         margin: 0;
         padding: 0;
         color: #333;
@@ -49,7 +49,8 @@
 
     /* Banner Arkaplan */
     .Banner {
-        background: linear-gradient(135deg, #006eff, #88ccff);
+
+        background: linear-gradient(135deg, #ffc598, #a8cff6);
         padding-bottom: 15px;
     }
 
@@ -156,7 +157,7 @@
     }
 
     .bosluk {
-        background: -webkit-linear-gradient(90deg,#debe74,#ec8e47);
+        background: -webkit-linear-gradient(90deg, #7F7FD5, #86A8E7);
         height: 550px;
         opacity: 0.85;
     }
