@@ -40,7 +40,7 @@
                     <li class="dropdown">
                         <a href="#">HİZMETLERİMİZ</a>
                     </li>
-                    <li><a href="#iletisim">İLETİŞİM</a></li>
+                    <li><a href="?syf=main#iletisim">İLETİŞİM</a></li>
                 </ul>
             </div>
         </div>
