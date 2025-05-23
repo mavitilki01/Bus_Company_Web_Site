@@ -35,7 +35,6 @@
         .accordion-body {
             color: #555;
             line-height: 1.6;
-            font-weight: bold;
         }
         .footer {
             background-color: #343a40;
@@ -60,7 +59,18 @@
 
                     <div class="accordion" id="faqAccordion">
 
-
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Bilet alımı nasıl yapılır?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Bilet alımınızı web sitemiz üzerinden online olarak, mobil uygulamamızdan, size en yakın şubemizden veya yetkili satış acentelerimizden kolayca yapabilirsiniz.
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
