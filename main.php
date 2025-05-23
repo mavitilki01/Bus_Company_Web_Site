@@ -78,8 +78,8 @@
 
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
             <div id="slideshow" class="center-block" style="margin: 20px;">
-                <img src="resimler/slayt/kartur_zeka.jfif" class="img-responsive">
-                <img src="https://images.pexels.com/photos/315938/pexels-photo-315938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="img-responsive">
+                <img src="Resimler/slayt/otobus3.jpg" class="img-responsive">
+                <img src="Resimler/slayt/otobus4.jpg" class="img-responsive">
                 <img src="https://plus.unsplash.com/premium_photo-1661963542752-9a8a1d72fb28?q=80&w=2070" class="img-responsive"> 
                 <img src="https://images.unsplash.com/photo-1719316663972-0696da2b47a3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive"></div>
                 <ul id="nav"></ul>
