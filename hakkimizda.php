@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Portfolyo - KARTUR</title>
+    <title>Hakkımızda - KARTUR</title>
     <link rel="icon" href="Resimler/kartur_logo.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -60,7 +60,7 @@
    
 
     <div class="container content-section" style="margin-top: 50px;">
-        <h2 class="text-center" style="margin-bottom: 40px;">Portfolyo</h2>
+        <h2 class="text-center" style="margin-bottom: 40px; color:black;">HAKKIMIZDA</h2>
 
         <div class="container">
 

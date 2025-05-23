@@ -17,11 +17,7 @@
             </div>
             <div>
                 <i><h3><i>"KarTur’la Her Yol, Evine Giden Yol." </i></h3> </i>
-            </div>
-        </div>
-    </div>
-
-    <nav class="navbar navbar-default logo-nav">
+                <nav class="navbar navbar-default logo-nav">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -35,24 +31,20 @@
                 <ul class="nav navbar-nav">
                     <li><a href="?syf=main">ANA SAYFA</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">KURUMSAL <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="?syf=Hakkimizda">Hakkımızda</a></li>
-                            <li><a href="?syf=Belgelerimiz">Belgelerimiz</a></li>
-                        </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HAKKIMIZDA <span class="caret"></span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HİZMETLERİMİZ <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="?syf=Hizmet1">Hizmet 1</a></li>
-                            <li><a href="?syf=Hizmet2">Hizmet 2</a></li>
-                            <li><a href="?syf=Portfolyo">Portfolyo</a></li>
-                        </ul>
+                        <a href="#hizmet" class="dropdown-toggle" data-toggle="dropdown">HİZMETLERİMİZ <span class="caret"></span></a>
                     </li>
                     <li><a href="#iletisim">İLETİŞİM</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+            </div>
+        </div>
+    </div>
+
+    
 </div>
 </body>
