@@ -120,7 +120,7 @@ $(function() {
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 duyuru-3">
                 <div class="duyurular" onclick="window.location.href='hakkimizda.php'">
                     <div>BİZ KİMİZ?</div>
-                    <div>KarTur'u tanıyın.</div>
+                    <div>KarTur hakkında merak ettiğiniz her şeyi buradan öğrenin.</div>
                     <a>İncele <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </div>
             </div>
