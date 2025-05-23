@@ -33,15 +33,12 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="?syf=main">ANA SAYFA</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HAKKIMIZDA</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#">HİZMETLERİMİZ</a>
-                    </li>
-                    <li><a href="?syf=main#iletisim">İLETİŞİM</a></li>
-                </ul>
+                <li><a href="main.php">ANA SAYFA</a></li>
+                <li><a href="hakkimizda.php">HAKKIMIZDA</a></li>
+                <li><a href="main.php#hizmetlerimiz">HİZMETLERİMİZ</a></li>
+                <li><a href="main.php#iletisim">İLETİŞİM</a></li>
+            </ul>
+
             </div>
         </div>
     </nav>

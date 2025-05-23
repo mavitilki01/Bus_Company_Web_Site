@@ -46,14 +46,9 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="?syf=main">ANA SAYFA</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HAKKIMIZDA</a>
-                        
-                    </li>
-                    <li class="dropdown">
-                        <a href="#hizmetlerimiz">HİZMETLERİMİZ</a>
-                    </li>
+                    <li><a href="main.php">ANA SAYFA</a></li>
+                    <li><a href="hakkimizda.php">HAKKIMIZDA</a></li>
+                    <li><a href="#hizmetlerimiz">HİZMETLERİMİZ</a></li>
                     <li><a href="#iletisim">İLETİŞİM</a></li>
                 </ul>
             </div>
@@ -109,23 +104,23 @@ $(function() {
     <div class="container cok">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 duyuru-1">
-                <div class="duyurular" onclick="window.open('?syf=Hizmet1','_top')">
+                <div class="duyurular" onclick="window.location.href='arac.php'">
                     <div>LÜX ARAÇLARIMIZ</div>
                     <div>Türkiyenin her şehrine kaliteli otobüslerimizle hızlı ve rahatça ulaşım sağlayın.</div>
                     <a>İncele <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 duyuru-2">
-                <div class="duyurular" onclick="window.open('?syf=Hizmet2','_top')">
+                <div class="duyurular" onclick="window.location.href='subeler.php'">
                     <div>ŞUBELERİMİZ</div>
                     <div>Şubelerimizdeki güler yüzlü çalışanlarımızla işlemlerinizi yapar ve kolayca bize ulaşabilirsiniz.</div>
                     <a>İncele <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 duyuru-3">
-                <div class="duyurular" onclick="window.open('?syf=Portfolyo','_top')">
-                    <div>PORTFOLYO</div>
-                    <div>Tamamladığınız projeleri veya başarılarınızı sergileyebilirsiniz.</div>
+                <div class="duyurular" onclick="window.location.href='hakkimizda.php'">
+                    <div>BİZ KİMİZ?</div>
+                    <div>KarTur'u tanıyın.</div>
                     <a>İncele <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </div>
             </div>

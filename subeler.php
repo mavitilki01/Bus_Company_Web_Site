@@ -52,9 +52,10 @@
     </style>
 </head>
 <body>
-    <div style="color:rgb(0,0,0);">
+   <div style="color:rgb(0,0,0);">
         <?php include('header.php'); ?> 
     </div>
+    
     <section class="container my-5">
         <div class="row">
             <?php
