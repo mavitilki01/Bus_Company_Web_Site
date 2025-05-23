@@ -17,7 +17,11 @@
             </div>
             <div>
                 <i><h3><i>"KarTur’la Her Yol, Evine Giden Yol." </i></h3> </i>
-                <nav class="navbar navbar-default logo-nav">
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default logo-nav">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -31,20 +35,15 @@
                 <ul class="nav navbar-nav">
                     <li><a href="?syf=main">ANA SAYFA</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HAKKIMIZDA <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HAKKIMIZDA</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#hizmet" class="dropdown-toggle" data-toggle="dropdown">HİZMETLERİMİZ <span class="caret"></span></a>
+                        <a href="#">HİZMETLERİMİZ</a>
                     </li>
                     <li><a href="#iletisim">İLETİŞİM</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-            </div>
-        </div>
-    </div>
-
-    
 </div>
 </body>
