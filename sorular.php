@@ -11,9 +11,7 @@
             background-color: #f0f2f5;
         }
         
-        #stil{
-            size:35px;
-        }
+    
         .faq-section {
             padding: 30px 30px;
             background-color: #fff;
@@ -51,7 +49,7 @@
 </head>
 <body>
 
-    <div id="stil" style="color:rgb(0,0,0);">
+    <div  style="color:rgb(0,0,0);">
         <?php include('header.php'); ?>
     </div>
 
