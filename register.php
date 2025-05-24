@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $servername = "localhost";
         $username = "root";
         $dbpassword = "";
-        $dbname = "kartur";
+        $dbname = "otobus_sistemi";
 
         $conn = new mysqli($servername, $username, $dbpassword, $dbname);
 
@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Aynı email ile kayıt var mı kontrolü
             $check = $conn->prepare("SELECT * FROM Yolcular WHERE email = ?");
+            
             $check->bind_param("s", $email);
             $check->execute();
             $result = $check->get_result();
