@@ -18,10 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $surname = htmlspecialchars(trim($_POST['surname']));
     $phone = htmlspecialchars(trim($_POST['phone']));
     $email = htmlspecialchars(trim($_POST['email']));
-    $password = htmlspecialchars(trim($_POST['password']));
+    $password = trim($_POST['password']); // htmlspecialchars burada hashlemeden önce yapılmamalı
     $confirm_password = htmlspecialchars(trim($_POST['confirm_password']));
 
-    if ($password !== $confirm_password) {
+    if ($password !== trim($_POST['confirm_password'])) { // Karşılaştırma ham değerlerle yapılmalı
         $register_message = '<div class="alert alert-danger">Şifreler uyuşmuyor. Lütfen tekrar deneyin.</div>';
     } else {
         // Veritabanına ekleme
@@ -45,12 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result->num_rows > 0) {
                 $register_message = '<div class="alert alert-warning">Bu e-posta adresi zaten kayıtlı!</div>';
             } else {
+                // Şifreyi hash'le
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
                 // IMPORTANT: Removed sefer_id from the INSERT statement and bind_param.
                 // Ensure 'kimlik_no' can accept an empty string or NULL in your database.
                 // If it's a numeric type (INT), you might need to change it to NULL or remove it too if not provided.
                 $stmt = $conn->prepare("INSERT INTO Yolcular (kimlik_no, ad, soyad, telefon_numarasi, email, password) VALUES (?, ?, ?, ?, ?, ?)");
                 // The 's' for kimlik_no is based on your original code, assuming it's a string type (VARCHAR).
-                $stmt->bind_param("ssssss", $kimlik_no, $name, $surname, $phone, $email, $password);
+                $stmt->bind_param("ssssss", $kimlik_no, $name, $surname, $phone, $email, $hashed_password);
 
                 if ($stmt->execute()) {
                     $register_message = '<div class="alert alert-success">Kayıt başarılı! Giriş yapabilirsiniz.</div>';
