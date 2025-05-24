@@ -11,14 +11,51 @@
     <meta name="robots" content="ALL" />
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> <!-- icon için link-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!-- mobil uyumlu css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="stil.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"> <!-- google map için-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle/3.0.3/jquery.cycle.all.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        /* Custom CSS for the "Sefer Seç" button */
+        .custom-sefer-button {
+            border-radius: 25px; /* More rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            font-size: 1.2em; /* Slightly larger text inside the button */
+            padding: 15px 30px; /* More padding for a bigger look */
+            margin-bottom: 10px; /* Add margin below for spacing */
+        }
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jquery kütüphanesi alttaki js leri çalıştırmak için lazım-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle/3.0.3/jquery.cycle.all.min.js"></script> <!-- slayt için script-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <!--açılır pencere için -->
+        .custom-sefer-button:hover {
+            transform: translateY(-2px); /* Lifts the button slightly on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+        }
+        /* Style for the new login button */
+        .login-button {
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            background-color: #007bff; /* Mavi renk */
+            border-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%; /* Make it block level to match other buttons */
+        }
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #0056b3;
+            border-color: #0056b3;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,7 +63,7 @@
 <div class="container-fluid Banner">
     <div class="container"> <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-7 logo">
-                <a href="?syf=main"><img src="Resimler/kartur_logo.png" class="img-responsive" alt="KARTUR Logo"></a>    
+                <a href="main.php"><img src="Resimler/kartur_logo.png" class="img-responsive" alt="KARTUR Logo"></a>    
             </div>
             <div>
                 <i><h3><i>"KarTur’la Her Yol, Evine Giden Yol." </i></h3> </i>
@@ -59,29 +96,23 @@
 <div class="container content-section">
     <div class="row main-content-row"> 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center" style="display:flex; justify-content:center; align-items:center; min-height: 300px;">
-            <div id="ticket-search-container" class="well" style="max-width: 600px; width: 150%; margin-top: 100px;">
-                <h3>Bilet Arama</h3>
-                <form id="dynamicTicketForm">
-                    <div class="form-group"> <input type="text" class="form-control" id="origin" placeholder="Nereden?">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="destination" placeholder="Nereye?">
-                    </div>
-                    <div class="form-group">
-                        <input type="date" class="form-control" id="travel-date">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Seferleri Ara</button>
-                </form>
-                <div id="search-results"></div>
+            <div id="ticket-selection-container" class="well" style="max-width: 600px; width: 150%; margin-top: 100px;">
+                <h3>Sefer Seç</h3>
+                <button type="button" class="btn btn-success btn-lg btn-block custom-sefer-button" onclick="window.location.href='sefer_sec.php'">
+                    <i class="fa-solid fa-ticket"></i> Seferleri Hemen Bul
+                </button>
+                <a href="login.php" class="btn btn-primary btn-lg btn-block login-button">
+                    <i class="fa-solid fa-sign-in-alt"></i> Giriş Yap
+                </a>
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
             <div id="slideshow" class="center-block" style="margin: 20px;">
-                <img src="Resimler/slayt/otobus3.jpg" class="img-responsive">
-                <img src="Resimler/slayt/otobus4.jpg" class="img-responsive">
-                <img src="https://plus.unsplash.com/premium_photo-1661963542752-9a8a1d72fb28?q=80&w=2070" class="img-responsive"> 
-                <img src="https://images.unsplash.com/photo-1719316663972-0696da2b47a3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive"></div>
+                <img src="Resimler/slayt/otobus3.jpg" class="img-responsive" alt="Otobüs Resmi 1">
+                <img src="Resimler/slayt/otobus4.jpg" class="img-responsive" alt="Otobüs Resmi 2">
+                <img src="https://plus.unsplash.com/premium_photo-1661963542752-9a8a1d72fb28?q=80&w=2070" class="img-responsive" alt="Otobüs Resmi 3"> 
+                <img src="https://images.unsplash.com/photo-1719316663972-0696da2b47a3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive" alt="Otobüs Resmi 4"></div>
                 <ul id="nav"></ul>
         </div>
     </div>
@@ -181,7 +212,6 @@ $(function() {
 
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 30px;">
 
-                        <!-- Google Harita -->
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3002.1571740883464!2d32.62271657566374!3d41.19654680781154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x408353329a493e5f%3A0x72358e6a634ef0cf!2zRXJnZW5la29uLCBLYXJhYsO8ayBPdG9nYXLEsSwgNzgyMDAgS2FyYWLDvGsgTWVya2V6L0thcmFiw7xr!5e0!3m2!1str!2str!4v1747756960812!5m2!1str!2str"
                 width="500" 
@@ -192,7 +222,6 @@ $(function() {
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
 
-            <!-- İletişim Bilgileri -->
             <div style="max-width: 400px; text-align: left;">
                 <p><strong>Adres:</strong><br>
                 Ergenekon, 78200 Karabük Merkez/Karabük</p>
@@ -206,24 +235,15 @@ $(function() {
                 <p><strong>Çalışma Saatleri:</strong><br>
                 Pazartesi - Cuma: 09:00 - 18:00</p>
             </div>
-
-
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
 
 <div class="container-fluid footer">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 alt-logo">
-                <a href="?syf=main"><img src="Resimler/kartur_logo.png" class="img-responsive"></a> 
+                <a href="main.php"><img src="Resimler/kartur_logo.png" class="img-responsive" alt="KARTUR Logo"></a> 
                 <br>Copyright © 2024 KARTUR
             </div>
             <div class="col-xs-12 col-sm-6 alt-tel">
@@ -244,20 +264,6 @@ $(function() {
     </div>
 </div>
 
-
-
-<script>
-document.getElementById('dynamicTicketForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const origin = document.getElementById('origin').value;
-    const destination = document.getElementById('destination').value;
-    const travelDate = document.getElementById('travel-date').value;
-
-    document.getElementById('search-results').innerHTML = `
-        <p>Arama motoru entegrasyonu için geliştirme yapılması gerekiyor.</p>
-        <p>Girişler: Nereden: <strong>${origin}</strong>, Nereye: <strong>${destination}</strong>, Tarih: <strong>${travelDate}</strong></p>`;
-});
-</script>
 
 </body>
 </html>
