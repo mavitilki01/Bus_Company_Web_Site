@@ -2,6 +2,10 @@
 $register_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Dışarıdan atanacak değişkenler
+    $kimlik_no = ''; // örnek: $_SESSION['kimlik_no'];
+    $sefer_id = '';  // örnek: $_GET['sefer_id'];
+
     $name = htmlspecialchars(trim($_POST['name']));
     $surname = htmlspecialchars(trim($_POST['surname']));
     $phone = htmlspecialchars(trim($_POST['phone']));
@@ -12,37 +16,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password !== $confirm_password) {
         $register_message = '<div class="alert alert-danger">Şifreler uyuşmuyor. Lütfen tekrar deneyin.</div>';
     } else {
-        $user_data = "$name:$surname:$phone:$email:$password\n";
-        $file = 'valid_users.txt';
+        // Veritabanına ekleme
+        $servername = "localhost";
+        $username = "root";
+        $dbpassword = "";
+        $dbname = "kartur";
 
-        if (!is_writable($file) && file_exists($file)) {
-            $register_message = '<div class="alert alert-danger">Kayıt dosyasına yazılamıyor.</div>';
-        } elseif (!file_exists($file) && !touch($file)) {
-            $register_message = '<div class="alert alert-danger">Kayıt dosyası oluşturulamıyor.</div>';
+        $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
+        if ($conn->connect_error) {
+            $register_message = '<div class="alert alert-danger">Veritabanı bağlantısı başarısız: ' . $conn->connect_error . '</div>';
         } else {
-            $users = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            $email_exists = false;
-            foreach ($users as $user_line) {
-                $parts = explode(':', $user_line);
-                if (count($parts) >= 4 && $parts[3] === $email) {
-                    $email_exists = true;
-                    break;
-                }
-            }
+            // Aynı email ile kayıt var mı kontrolü
+            $check = $conn->prepare("SELECT * FROM Yolcular WHERE email = ?");
+            $check->bind_param("s", $email);
+            $check->execute();
+            $result = $check->get_result();
 
-            if ($email_exists) {
+            if ($result->num_rows > 0) {
                 $register_message = '<div class="alert alert-warning">Bu e-posta adresi zaten kayıtlı!</div>';
             } else {
-                if (file_put_contents($file, $user_data, FILE_APPEND | LOCK_EX) !== false) {
+                $stmt = $conn->prepare("INSERT INTO Yolcular (kimlik_no, sefer_id, ad, soyad, telefon_numarasi, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sisssss", $kimlik_no, $sefer_id, $name, $surname, $phone, $email, $password);
+
+                if ($stmt->execute()) {
                     $register_message = '<div class="alert alert-success">Kayıt başarılı! Giriş yapabilirsiniz.</div>';
                 } else {
                     $register_message = '<div class="alert alert-danger">Kayıt sırasında bir hata oluştu.</div>';
                 }
+                $stmt->close();
             }
+            $check->close();
+            $conn->close();
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>

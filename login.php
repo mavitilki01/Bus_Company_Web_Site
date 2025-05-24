@@ -6,11 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Form gönderildiyse
     $email = htmlspecialchars(trim($_POST['email'])); // Güvenlik için temizle
     $password = htmlspecialchars(trim($_POST['password'])); // Şifre için temizle
-
-    // --- Örnek Kullanıcı Bilgileri (Gerçek uygulamada veritabanından çekilmelidir) ---
-    // Güvenlik Uyarısı: Gerçek bir sistemde bu bilgiler veritabanında saklanmalı
-    // ve şifreler asla düz metin olarak değil, hashlenmiş olarak tutulmalıdır.
-    // password_hash() ve password_verify() fonksiyonlarını kullanmanız önerilir.
+    
     $valid_users = [
         [
             'email' => 'kullanici1@gmail.com',
