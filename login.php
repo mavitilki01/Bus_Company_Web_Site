@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             // Giriş başarılı
             $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user['musteri_id']; 
+            $_SESSION['user_id'] = $user['musteri_id']; // Kullanıcı ID'sini oturuma kaydetmek iyi bir uygulamadır
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['login_success'] = "Giriş başarıyla yapıldı!";
             header("Location: main.php");
