@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+// Giriş başarılı mesajı varsa göster ve oturumdan sil
+if (isset($_SESSION['login_success'])) {
+    $login_message = '<div class="alert alert-success text-center" role="alert">' . $_SESSION['login_success'] . '</div>';
+    unset($_SESSION['login_success']); // Mesajı bir kere gösterdikten sonra sil
+}
+
+// Kullanıcı giriş yapmışsa kontrol et
+$logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+$user_email = $logged_in ? $_SESSION['user_email'] : null;
+?>
+
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -88,15 +103,22 @@
     </nav>
 </div>
 
+
 <div class="container content-section">
-    <div class="row main-content-row"> 
+    <div class="row main-content-row">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center" style="display:flex; justify-content:center; align-items:center; min-height: 300px;">
             <div id="ticket-selection-container" class="well" style="max-width: 600px; width: 150%; margin-top: 100px;">
                 <h3>Sefer Seç</h3>
-                    <a href="seferler.php" class="login-button btn-sefer"><i class="fa-solid fa-ticket"></i> Seferleri Görüntüle</a>
-                    <a href="login.php" class="login-button">
-                    <i class="fa-solid fa-sign-in-alt"></i> Giriş Yap
-                    </a>
+                <?php if (isset($login_message)): ?>
+                    <?php echo $login_message; ?>
+                <?php endif; ?>
+                <a href="seferler.php" class="login-button btn-sefer"><i class="fa-solid fa-ticket"></i> Seferleri Görüntüle</a>
+                <?php if (!$logged_in): ?>
+                    <a href="login.php" class="login-button"><i class="fa-solid fa-sign-in-alt"></i> Giriş Yap</a>
+                <?php else: ?>
+                    <p class="text-success">Hoş geldiniz, <?php echo htmlspecialchars($user_email); ?>!</p>
+                    <a href="logout.php" class="login-button btn-logout"><i class="fa-solid fa-sign-out-alt"></i> Çıkış Yap</a>
+                <?php endif; ?>
 
             </div>
         </div>
