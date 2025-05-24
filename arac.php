@@ -17,7 +17,7 @@
     }
     .vehicle-container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* 4 sütun */
+      grid-template-columns: repeat(4, 1fr); 
       gap: 20px;
       margin-top: 30px;
     }
@@ -43,7 +43,7 @@
       object-fit: cover;
     }
 
-    /* Responsive: ekran küçüldükçe sütun sayısını azalt */
+
     @media (max-width: 1200px) {
       .vehicle-container {
         grid-template-columns: repeat(3, 1fr);

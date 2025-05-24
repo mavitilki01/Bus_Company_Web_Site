@@ -1,13 +1,12 @@
 <?php
 session_start(); // Oturumu başlat
-$login_error = ''; // Hata mesajı için değişken
+$login_error = ''; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Form gönderildiyse
-    $email = htmlspecialchars(trim($_POST['email'])); // Güvenlik için temizle
-    $password = trim($_POST['password']); // Hash karşılaştırması için ham şifre alınmalı
+    $email = htmlspecialchars(trim($_POST['email'])); 
+    $password = trim($_POST['password']); // Hash karşılaştırması için şifre alınmalı
 
-    // Veritabanı bağlantısı (Bilgilerinizi kontrol edin)
     $servername = "localhost";
     $username = "root";
     $dbpassword = "";
@@ -107,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             font-size: 1.1rem;
             font-weight: 600;
-            margin-top: 15px; /* Added margin for spacing */
+            margin-top: 15px; 
         }
         .btn-secondary:hover {
             background-color: #5a6268;
@@ -124,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="login-container">
         <h2>Giriş Yap</h2>
         <?php
-        // Hata mesajı varsa göster
+
         if ($login_error) {
             echo '<div class="alert alert-danger" role="alert">' . $login_error . '</div>';
         }

@@ -7,9 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
-            background-color: #f0f2f5; /* Hafif gri arka plan */
+            background-color: #f0f2f5; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-top: 20px; /* Üstten biraz boşluk bırakır */
+            padding-top: 20px; 
         }
         .branch-card {
             border: none;
@@ -24,12 +24,12 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         .branch-card .card-header {
-            background-color: #0056b3; /* Koyu mavi başlık */
+            background-color: #0056b3; 
             color: white;
             font-weight: 600;
             border-bottom: none;
             padding: 1rem 1.25rem;
-            font-size: 1.25rem; /* Şube isimlerinin daha belirgin olması için */
+            font-size: 1.25rem; 
         }
         .branch-card .card-body {
             padding: 1.5rem;
@@ -43,7 +43,7 @@
             color: #333;
         }
         .footer {
-            background-color: #343a40; /* Koyu gri footer */
+            background-color: #343a40; 
             color: white;
             padding: 30px 0;
             text-align: center;
@@ -59,7 +59,7 @@
     <section class="container my-5">
         <div class="row">
             <?php
-            // Şube bilgileri bir dizi içinde saklanır.
+ 
             $subeler = [
                 [
                     "ad" => "İstanbul Avrupa Yakası Şubesi",
@@ -117,12 +117,12 @@
                 ]
             ];
 
-            // Her bir şube için döngü oluşturulur ve bilgiler ekrana yazdırılır.
+            
             foreach ($subeler as $sube) {
-                echo '<div class="col-md-6 col-lg-4">'; // Her şube için sütun tanımlaması (duyarlı tasarım)
+                echo '<div class="col-md-6 col-lg-4">'; 
                 echo '    <div class="card branch-card">';
                 echo '        <div class="card-header">';
-                echo '            ' . htmlspecialchars($sube["ad"]); // ŞUBE ADI BURADA GÖSTERİLİYOR
+                echo '            ' . htmlspecialchars($sube["ad"]); 
                 echo '        </div>';
                 echo '        <div class="card-body">';
                 echo '            <p><strong>Adres:</strong> ' . htmlspecialchars($sube["adres"]) . '</p>';

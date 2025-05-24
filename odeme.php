@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $yolcu_adi = $_POST['yolcu_adi'];
     $tc_kimlik = $_POST['tc_kimlik'];
     $odeme_tipi = $_POST['odeme_tipi'];
-    $tutar = 300; // örnek sabit ücret
+    $tutar = 300; 
 
     // 1. Yolcu kaydı
     $stmt = $conn->prepare("INSERT INTO Yolcu (ad_soyad, tc_kimlik) VALUES (?, ?)");

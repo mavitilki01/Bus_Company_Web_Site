@@ -14,7 +14,7 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
 
-    // Örnek: Şubeler ve o şubeye bağlı satış temsilcilerinin listesi
+
     $sql = "
         SELECT s.sube_adi, st.ad AS temsilci_ad, st.soyad AS temsilci_soyad, st.telefon
         FROM Subeler s

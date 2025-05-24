@@ -1,5 +1,5 @@
 <?php
-// Enable error reporting for debugging (remove in production)
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,21 +7,16 @@ error_reporting(E_ALL);
 $register_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Dışarıdan atanacak değişkenler - sefer_id artık register formundan gelmiyor
-    // Bu değer, Yolcular tablosunda NULL olarak veya bir sonraki işlemde atanacak şekilde ayarlanmalıdır.
-    $kimlik_no = ''; // If kimlik_no is also not part of registration, consider making it NULL.
-                     // For now, it's an empty string as per your original code.
-    // $sefer_id artık register formundan gelmiyor, bu yüzden burada tanımlanmasına gerek yok
-    // veya veritabanında NULL olarak kaydedilecekse null olarak ayarlanabilir.
+    $kimlik_no = ''; 
 
     $name = htmlspecialchars(trim($_POST['name']));
     $surname = htmlspecialchars(trim($_POST['surname']));
     $phone = htmlspecialchars(trim($_POST['phone']));
     $email = htmlspecialchars(trim($_POST['email']));
-    $password = trim($_POST['password']); // htmlspecialchars burada hashlemeden önce yapılmamalı
+    $password = trim($_POST['password']); 
     $confirm_password = htmlspecialchars(trim($_POST['confirm_password']));
 
-    if ($password !== trim($_POST['confirm_password'])) { // Karşılaştırma ham değerlerle yapılmalı
+    if ($password !== trim($_POST['confirm_password'])) { 
         $register_message = '<div class="alert alert-danger">Şifreler uyuşmuyor. Lütfen tekrar deneyin.</div>';
     } else {
         // Veritabanına ekleme
@@ -35,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($conn->connect_error) {
             $register_message = '<div class="alert alert-danger">Veritabanı bağlantısı başarısız: ' . $conn->connect_error . '</div>';
         } else {
-            // Aynı email ile kayıt var mı kontrolü
+
             $check = $conn->prepare("SELECT * FROM Yolcular WHERE email = ?");
 
             $check->bind_param("s", $email);
@@ -48,11 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Şifreyi hash'le
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // IMPORTANT: Removed sefer_id from the INSERT statement and bind_param.
-                // Ensure 'kimlik_no' can accept an empty string or NULL in your database.
-                // If it's a numeric type (INT), you might need to change it to NULL or remove it too if not provided.
                 $stmt = $conn->prepare("INSERT INTO Yolcular (kimlik_no, ad, soyad, telefon_numarasi, email, password) VALUES (?, ?, ?, ?, ?, ?)");
-                // The 's' for kimlik_no is based on your original code, assuming it's a string type (VARCHAR).
+
                 $stmt->bind_param("ssssss", $kimlik_no, $name, $surname, $phone, $email, $hashed_password);
 
                 if ($stmt->execute()) {

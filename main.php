@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-// Giriş başarılı mesajı varsa göster ve oturumdan sil
+// Giriş başarılı mesajı varsa göster ve oturumdan silsin
 if (isset($_SESSION['login_success'])) {
     $login_message = '<div class="alert alert-success text-center" role="alert">' . $_SESSION['login_success'] . '</div>';
-    unset($_SESSION['login_success']); // Mesajı bir kere gösterdikten sonra sil
+    unset($_SESSION['login_success']); 
 }
 
 // Kullanıcı giriş yapmışsa kontrol et
@@ -45,8 +45,8 @@ $user_email = $logged_in ? $_SESSION['user_email'] : null;
     text-decoration: none;
     display: inline-block;
     width: 100%;
-    margin-bottom: 15px; /* Butonlar arası boşluk */
-    background-color: #007bff; /* Varsayılan mavi */
+    margin-bottom: 15px; 
+    background-color: #007bff; 
     border: none;
 }
 
@@ -58,11 +58,11 @@ $user_email = $logged_in ? $_SESSION['user_email'] : null;
 }
 
 .btn-sefer {
-    background-color: #28a745; /* Yeşil */
+    background-color: #28a745; 
 }
 
 .btn-sefer:hover {
-    background-color: #1e7e34; /* Koyu yeşil */
+    background-color: #1e7e34; 
 }
 
     </style>
