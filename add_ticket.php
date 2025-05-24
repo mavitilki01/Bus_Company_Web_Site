@@ -1,80 +1,216 @@
 <?php
+// db.php dosyasını PDO ile veritabanı bağlantısı için ekliyoruz
 require 'db.php';
 
+$message = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $musteri_id = $_POST["musteri_id"];
-    $sefer_id = $_POST["sefer_id"];
-    $satis_yontemi = $_POST["satis_yontemi"];
-    $odeme_yontemi = $_POST["odeme_yontemi"];
+    // Formdan gelen veriler
+    $tc = $_POST['tc'];
+    $ad = $_POST['ad'];
+    $soyad = $_POST['soyad'];
+    $kart_no = $_POST['kart_no'];
+    $cvc = $_POST['cvc'];
+    $son_kullanma = $_POST['son_kullanma'];
 
-    // 1. Bilet kaydını ekle
-    $sql_bilet = "INSERT INTO Biletler (musteri_id, sefer_id, satis_yontemi, odeme_yontemi) VALUES (?, ?, ?, ?)";
-    $stmt_bilet = $conn->prepare($sql_bilet);
-    $stmt_bilet->bind_param("iiss", $musteri_id, $sefer_id, $satis_yontemi, $odeme_yontemi);
+    try {
+        // Yolcu var mı kontrol et
+        $sql_yolcu = "SELECT musteri_id FROM Yolcular WHERE kimlik_no = :tc";
+        $stmt = $conn->prepare($sql_yolcu);
+        $stmt->execute(['tc' => $tc]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($stmt_bilet->execute()) {
-        $bilet_id = $stmt_bilet->insert_id;
-
-        // 2. Ödeme bilgilerini ekle
-        if ($odeme_yontemi == "kredi_karti") {
-            $kart_no = $_POST["kart_no"];
-            $son_kullanma = $_POST["son_kullanma"];
-            $cvv = $_POST["cvv"];
-
-            $sql_kredi = "INSERT INTO Kredi_Karti (bilet_id, kart_no, son_kullanma_tarihi, cvv) VALUES (?, ?, ?, ?)";
-            $stmt_kredi = $conn->prepare($sql_kredi);
-            $stmt_kredi->bind_param("isss", $bilet_id, $kart_no, $son_kullanma, $cvv);
-            $stmt_kredi->execute();
-        } elseif ($odeme_yontemi == "nakit") {
-            $verilen = $_POST["verilen"];
-            $para_ustu = $_POST["para_ustu"];
-
-            $sql_nakit = "INSERT INTO Nakit (bilet_id, verilen_tutar, para_ustu) VALUES (?, ?, ?)";
-            $stmt_nakit = $conn->prepare($sql_nakit);
-            $stmt_nakit->bind_param("idd", $bilet_id, $verilen, $para_ustu);
-            $stmt_nakit->execute();
+        if (!$row) {
+            // Yolcu yoksa ekle
+            $sql_ekle = "INSERT INTO Yolcular (kimlik_no, ad, soyad, telefon_numarasi, email, password) 
+                         VALUES (:tc, :ad, :soyad, '', '', '')";
+            $stmt2 = $conn->prepare($sql_ekle);
+            $stmt2->execute(['tc' => $tc, 'ad' => $ad, 'soyad' => $soyad]);
+            $musteri_id = $conn->lastInsertId();
+        } else {
+            // Yolcu varsa id al
+            $musteri_id = $row['musteri_id'];
         }
 
-        echo "Bilet başarıyla oluşturuldu. <a href='tickets.php'>Bilet Listesi</a>";
-    } else {
-        echo "Hata: " . $stmt_bilet->error;
+        // Temsilci, sefer, fiyat bilgisi (örnek)
+        $temsilci_id = 1;
+        $sefer_id = 1;
+        $fiyat = 100.00;
+
+        // Ödeme ekle
+        $odeme_tarihi = date("Y-m-d");
+        $sql_odeme = "INSERT INTO Odemeler (musteri_id, temsilci_id, fiyat, odeme_tarihi) 
+                      VALUES (:musteri_id, :temsilci_id, :fiyat, :odeme_tarihi)";
+        $stmt3 = $conn->prepare($sql_odeme);
+        $stmt3->execute([
+            'musteri_id' => $musteri_id,
+            'temsilci_id' => $temsilci_id,
+            'fiyat' => $fiyat,
+            'odeme_tarihi' => $odeme_tarihi
+        ]);
+        $odeme_id = $conn->lastInsertId();
+
+        // Kredi kartı bilgisi ekle
+        $site_id = 1;
+        $kart_tipi = "Visa"; // Sabit örnek
+        $sql_kart = "INSERT INTO Kredi_Karti (odeme_id, kart_tipi, kart_no, cvc, son_kullanma_tarihi, banka_adi, kart_uzerindeki_isim, site_id)
+                     VALUES (:odeme_id, :kart_tipi, :kart_no, :cvc, :son_kullanma, '', :kart_uzerindeki_isim, :site_id)";
+        $stmt4 = $conn->prepare($sql_kart);
+        $stmt4->execute([
+            'odeme_id' => $odeme_id,
+            'kart_tipi' => $kart_tipi,
+            'kart_no' => $kart_no,
+            'cvc' => $cvc,
+            'son_kullanma' => $son_kullanma,
+            'kart_uzerindeki_isim' => $ad . ' ' . $soyad,
+            'site_id' => $site_id
+        ]);
+
+        // Bilet ekle
+        $satis_yontemi = "Online";
+        $odeme_yontemi = "Kredi Kartı";
+        $sql_bilet = "INSERT INTO Biletler (musteri_id, temsilci_id, sefer_id, satis_yontemi, odeme_yontemi)
+                      VALUES (:musteri_id, :temsilci_id, :sefer_id, :satis_yontemi, :odeme_yontemi)";
+        $stmt5 = $conn->prepare($sql_bilet);
+        $stmt5->execute([
+            'musteri_id' => $musteri_id,
+            'temsilci_id' => $temsilci_id,
+            'sefer_id' => $sefer_id,
+            'satis_yontemi' => $satis_yontemi,
+            'odeme_yontemi' => $odeme_yontemi
+        ]);
+
+        $message = "Biletiniz başarıyla alındı! Teşekkür ederiz.";
+
+    } catch (PDOException $e) {
+        $message = "Bir hata oluştu: " . $e->getMessage();
     }
 }
 ?>
 
-<h2>Bilet Satın Al</h2>
-<form action="odeme.php" method="POST">
-    Müşteri ID: <input type="number" name="musteri_id" required><br>
-    Sefer ID: <input type="number" name="sefer_id" required><br>
-    Satış Yöntemi: 
-    <select name="satis_yontemi">
-        <option value="internet">İnternet</option>
-        <option value="sube">Şube</option>
-    </select><br>
-    Ödeme Yöntemi:
-    <select name="odeme_yontemi" id="odeme_yontemi" onchange="toggleOdeme()">
-        <option value="kredi_karti">Kredi Kartı</option>
-        <option value="nakit">Nakit</option>
-    </select><br>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilet Alma Ekranı</title>
+    <style>
+        /* Genel gövde ayarları */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Başlık */
+        h2 {
+            margin-top: 40px;
+            color: #333;
+            text-align: center;
+        }
+        /* Formu içeren kutu */
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+        }
+        form {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        /* Label stili */
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #555;
+        }
+        /* Input alanları */
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1.8px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        /* Focus durumunda input */
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 6px rgba(0,123,255,0.3);
+        }
+        /* Buton stili */
+        button {
+            width: 100%;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        /* Başarılı/hata mesajı */
+        .message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 20px auto;
+            font-weight: 600;
+            text-align: center;
+            width: 350px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Bilet Alma Formu</h2>
+    <main>
+        <?php if (!empty($message)): ?>
+            <p class="message"><?php echo htmlspecialchars($message); ?></p>
+        <?php else: ?>
+            <form method="POST" action="">
+                <label>TC Kimlik No:</label>
+                <input type="text" name="tc" required maxlength="11" pattern="\d{11}" title="11 haneli TC kimlik numarası">
 
-    <div id="kredi_karti_fields" style="display:none;">
-        Kart No: <input type="text" name="kart_no"><br>
-        Son Kullanma Tarihi: <input type="text" name="son_kullanma"><br>
-        CVV: <input type="text" name="cvv"><br>
-    </div>
+                <label>Ad:</label>
+                <input type="text" name="ad" required>
 
-    <div id="nakit_fields" style="display:none;">
-        Verilen Tutar: <input type="number" step="0.01" name="verilen"><br>
-        Para Üstü: <input type="number" step="0.01" name="para_ustu"><br>
-    </div>
+                <label>Soyad:</label>
+                <input type="text" name="soyad" required>
 
-    <button type="submit">Satın Al</button>
-</form>
+                <label>Kart Numarası:</label>
+                <input type="text" name="kart_no" required maxlength="16" pattern="\d{16}" title="16 haneli kart numarası">
 
-<script>
-function toggleOdeme() {
-    const odemeYontemi = document.getElementById("odeme_yontemi").value;
-    document.getElementById("kredi_karti_fields").style.display = odemeYontemi === "kredi_karti" ? "block" : "none";
-    document.getElementById("nakit_fields").style.display = odemeYontemi === "nakit" ? "block" : "none";
-}
-</script>
+                <label>CVC:</label>
+                <input type="text" name="cvc" required maxlength="3" pattern="\d{3}" title="3 haneli CVC">
+
+                <label>Son Kullanma Tarihi (YYYY-AA-GG):</label>
+                <input type="date" name="son_kullanma" required>
+
+                <button type="submit">Bilet Al</button>
+            </form>
+        <?php endif; ?>
+    </main>
+</body>
+</html>
+

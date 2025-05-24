@@ -19,42 +19,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle/3.0.3/jquery.cycle.all.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        /* Custom CSS for the "Sefer Seç" button */
-        .custom-sefer-button {
-            border-radius: 25px; /* More rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-            transition: all 0.3s ease; /* Smooth transition for hover effects */
-            font-size: 1.2em; /* Slightly larger text inside the button */
-            padding: 15px 30px; /* More padding for a bigger look */
-            margin-bottom: 10px; /* Add margin below for spacing */
-        }
+       .login-button {
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px; /* Butonlar arası boşluk */
+    background-color: #007bff; /* Varsayılan mavi */
+    border: none;
+}
 
-        .custom-sefer-button:hover {
-            transform: translateY(-2px); /* Lifts the button slightly on hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
-        }
-        /* Style for the new login button */
-        .login-button {
-            border-radius: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            font-size: 1.2em;
-            padding: 15px 30px;
-            background-color: #007bff; /* Mavi renk */
-            border-color: #007bff;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            width: 100%; /* Make it block level to match other buttons */
-        }
-        .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            background-color: #0056b3;
-            border-color: #0056b3;
-            color: white;
-        }
+.login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: #0056b3;
+    color: white;
+}
+
+.btn-sefer {
+    background-color: #28a745; /* Yeşil */
+}
+
+.btn-sefer:hover {
+    background-color: #1e7e34; /* Koyu yeşil */
+}
+
     </style>
 </head>
 <body>
@@ -98,12 +93,11 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center" style="display:flex; justify-content:center; align-items:center; min-height: 300px;">
             <div id="ticket-selection-container" class="well" style="max-width: 600px; width: 150%; margin-top: 100px;">
                 <h3>Sefer Seç</h3>
-                <button type="button" class="btn btn-success btn-lg btn-block custom-sefer-button" onclick="window.location.href='sefer_sec.php'">
-                    <i class="fa-solid fa-ticket"></i> Seferleri Hemen Bul
-                </button>
-                <a href="login.php" class="btn btn-primary btn-lg btn-block login-button">
+                    <a href="seferler.php" class="login-button btn-sefer"><i class="fa-solid fa-ticket"></i> Seferleri Görüntüle</a>
+                    <a href="login.php" class="login-button">
                     <i class="fa-solid fa-sign-in-alt"></i> Giriş Yap
-                </a>
+                    </a>
+
             </div>
         </div>
 
