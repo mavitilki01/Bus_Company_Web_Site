@@ -5,52 +5,38 @@ $login_error = ''; // Hata mesajı için değişken
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Form gönderildiyse
     $email = htmlspecialchars(trim($_POST['email'])); // Güvenlik için temizle
-    $password = trim($_POST['password']); // Hash karşılaştırması için ham şifre alınmalı
+    $password = htmlspecialchars(trim($_POST['password'])); // Şifre için temizle
+    
+    $valid_users = [
+        [
+            'email' => 'kullanici1@gmail.com',
+            'password' => 'sifre123' // Düz metin şifre (sadece örnek için)
+        ],
+        [
+            'email' => 'kullanici2@gmail.com',
+            'password' => 'sifre456' // Düz metin şifre (sadece örnek için)
+        ]
+    ];
+    // --- Örnek Kullanıcı Bilgileri Sonu ---
 
-    // Veritabanı bağlantısı (Bilgilerinizi kontrol edin)
-    $servername = "localhost";
-    $username = "root";
-    $dbpassword = "";
-    $dbname = "otobus_sistemi";
-
-    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-    // Bağlantı hatası kontrolü
-    if ($conn->connect_error) {
-        die("Veritabanı bağlantısı başarısız: " . $conn->connect_error);
-    }
-
-    // Kullanıcıyı e-posta adresine göre sorgula
-    $stmt = $conn->prepare("SELECT musteri_id, email, password FROM Yolcular WHERE email = ?");
-    if ($stmt === false) {
-        die("SQL sorgusu hazırlama hatası: " . $conn->error);
-    }
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        // Şifreyi doğrula
-        if (password_verify($password, $user['password'])) {
-            // Giriş başarılı
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user['musteri_id']; // Kullanıcı ID'sini oturuma kaydetmek iyi bir uygulamadır
-            $_SESSION['user_email'] = $user['email'];
-            $_SESSION['login_success'] = "Giriş başarıyla yapıldı!";
-            header("Location: main.php");
-            exit();
-        } else {
-            // Hatalı şifre
-            $login_error = "E-posta veya Şifre hatalı!";
+    $is_authenticated = false;
+    foreach ($valid_users as $user) {
+        if ($user['email'] === $email && $user['password'] === $password) { // Şifre kontrolü
+            $is_authenticated = true;
+            break;
         }
+    }
+
+    if ($is_authenticated) {
+        // Başarılı giriş
+        $_SESSION['logged_in'] = true; // Oturum değişkenini ayarla
+        $_SESSION['user_email'] = $email; // Kullanıcı e-postasını oturuma kaydet
+        header("Location: welcome.php"); // Başarılı giriş sonrası yönlendirme sayfası
+        exit();
     } else {
-        // E-posta adresi bulunamadı
+        // Başarısız giriş
         $login_error = "E-posta veya Şifre hatalı!";
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>
 <!DOCTYPE html>
@@ -131,17 +117,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         <form action="login.php" method="POST">
             <div class="mb-3">
-                <label for="email" class="form-label">E-posta Adresi</label>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="E-posta adresinizi girin"
-                       value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
+                <label for="email" class="form-label">E-posta Adresi (Gmail)</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="ornek@gmail.com"
+                        value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Şifre</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="Şifrenizi girin">
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Şifreniz"
+                        value="<?php echo isset($password) ? htmlspecialchars($password) : ''; ?>">
             </div>
             <button type="submit" class="btn btn-primary">Giriş Yap</button>
-            <a href="register.php" class="btn btn-secondary">Kayıt Ol</a>
-        </form>
+            <a href="register.php" class="btn btn-secondary">Kayıt Ol</a> </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
