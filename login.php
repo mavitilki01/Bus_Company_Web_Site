@@ -5,27 +5,27 @@ $login_error = ''; // Hata mesajı için değişken
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Form gönderildiyse
     $email = htmlspecialchars(trim($_POST['email'])); // Güvenlik için temizle
-    $tc_kimlik = htmlspecialchars(trim($_POST['tc_kimlik'])); // Güvenlik için temizle
+    $password = htmlspecialchars(trim($_POST['password'])); // Şifre için temizle
 
     // --- Örnek Kullanıcı Bilgileri (Gerçek uygulamada veritabanından çekilmelidir) ---
-    // Bu kısım, kimlik doğrulaması için manuel olarak belirlenmiş kullanıcıları içerir.
     // Güvenlik Uyarısı: Gerçek bir sistemde bu bilgiler veritabanında saklanmalı
-    // ve TC Kimlik Numarası gibi hassas veriler asla düz metin olarak tutulmamalıdır.
+    // ve şifreler asla düz metin olarak değil, hashlenmiş olarak tutulmalıdır.
+    // password_hash() ve password_verify() fonksiyonlarını kullanmanız önerilir.
     $valid_users = [
         [
             'email' => 'kullanici1@gmail.com',
-            'tc_kimlik' => '11111111111' 
+            'password' => 'sifre123' // Düz metin şifre (sadece örnek için)
         ],
         [
             'email' => 'kullanici2@gmail.com',
-            'tc_kimlik' => '22222222222'
+            'password' => 'sifre456' // Düz metin şifre (sadece örnek için)
         ]
     ];
     // --- Örnek Kullanıcı Bilgileri Sonu ---
 
     $is_authenticated = false;
     foreach ($valid_users as $user) {
-        if ($user['email'] === $email && $user['tc_kimlik'] === $tc_kimlik) {
+        if ($user['email'] === $email && $user['password'] === $password) { // Şifre kontrolü
             $is_authenticated = true;
             break;
         }
@@ -35,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Başarılı giriş
         $_SESSION['logged_in'] = true; // Oturum değişkenini ayarla
         $_SESSION['user_email'] = $email; // Kullanıcı e-postasını oturuma kaydet
-        header("Location: welcome.php"); // Başarılı giriş sonrası yönlendirme sayfası (bu sayfayı da oluşturmanız gerekir)
+        header("Location: welcome.php"); // Başarılı giriş sonrası yönlendirme sayfası
         exit();
     } else {
         // Başarısız giriş
-        $login_error = "E-posta veya TC Kimlik Numarası hatalı!";
+        $login_error = "E-posta veya Şifre hatalı!";
     }
 }
 ?>
@@ -90,6 +90,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #0056b3;
             border-color: #0056b3;
         }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 15px; /* Added margin for spacing */
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
         .alert {
             margin-top: 20px;
             text-align: center;
@@ -110,15 +123,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="mb-3">
                 <label for="email" class="form-label">E-posta Adresi (Gmail)</label>
                 <input type="email" class="form-control" id="email" name="email" required placeholder="ornek@gmail.com"
-                       value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
+                        value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
             </div>
             <div class="mb-3">
-                <label for="tc_kimlik" class="form-label">TC Kimlik Numarası</label>
-                <input type="text" class="form-control" id="tc_kimlik" name="tc_kimlik" pattern="\d{11}" title="Lütfen 11 haneli TC Kimlik numaranızı girin." required placeholder="TC Kimlik Numaranız" maxlength="11"
-                       value="<?php echo isset($tc_kimlik) ? htmlspecialchars($tc_kimlik) : ''; ?>">
+                <label for="password" class="form-label">Şifre</label>
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Şifreniz"
+                        value="<?php echo isset($password) ? htmlspecialchars($password) : ''; ?>">
             </div>
             <button type="submit" class="btn btn-primary">Giriş Yap</button>
-        </form>
+            <a href="register.php" class="btn btn-secondary">Kayıt Ol</a> </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
