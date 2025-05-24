@@ -1,10 +1,18 @@
 <?php
+// Enable error reporting for debugging (remove in production)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $register_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Dışarıdan atanacak değişkenler
-    $kimlik_no = ''; // örnek: $_SESSION['kimlik_no'];
-    $sefer_id = '';  // örnek: $_GET['sefer_id'];
+    // Dışarıdan atanacak değişkenler - sefer_id artık register formundan gelmiyor
+    // Bu değer, Yolcular tablosunda NULL olarak veya bir sonraki işlemde atanacak şekilde ayarlanmalıdır.
+    $kimlik_no = ''; // If kimlik_no is also not part of registration, consider making it NULL.
+                     // For now, it's an empty string as per your original code.
+    // $sefer_id artık register formundan gelmiyor, bu yüzden burada tanımlanmasına gerek yok
+    // veya veritabanında NULL olarak kaydedilecekse null olarak ayarlanabilir.
 
     $name = htmlspecialchars(trim($_POST['name']));
     $surname = htmlspecialchars(trim($_POST['surname']));
@@ -29,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Aynı email ile kayıt var mı kontrolü
             $check = $conn->prepare("SELECT * FROM Yolcular WHERE email = ?");
-            
+
             $check->bind_param("s", $email);
             $check->execute();
             $result = $check->get_result();
@@ -37,13 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result->num_rows > 0) {
                 $register_message = '<div class="alert alert-warning">Bu e-posta adresi zaten kayıtlı!</div>';
             } else {
-                $stmt = $conn->prepare("INSERT INTO Yolcular (kimlik_no, sefer_id, ad, soyad, telefon_numarasi, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("sisssss", $kimlik_no, $sefer_id, $name, $surname, $phone, $email, $password);
+                // IMPORTANT: Removed sefer_id from the INSERT statement and bind_param.
+                // Ensure 'kimlik_no' can accept an empty string or NULL in your database.
+                // If it's a numeric type (INT), you might need to change it to NULL or remove it too if not provided.
+                $stmt = $conn->prepare("INSERT INTO Yolcular (kimlik_no, ad, soyad, telefon_numarasi, email, password) VALUES (?, ?, ?, ?, ?, ?)");
+                // The 's' for kimlik_no is based on your original code, assuming it's a string type (VARCHAR).
+                $stmt->bind_param("ssssss", $kimlik_no, $name, $surname, $phone, $email, $password);
 
                 if ($stmt->execute()) {
                     $register_message = '<div class="alert alert-success">Kayıt başarılı! Giriş yapabilirsiniz.</div>';
                 } else {
-                    $register_message = '<div class="alert alert-danger">Kayıt sırasında bir hata oluştu.</div>';
+                    $register_message = '<div class="alert alert-danger">Kayıt sırasında bir hata oluştu: ' . $stmt->error . '</div>';
                 }
                 $stmt->close();
             }
